@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ElectroMart - Premium Electronics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a0ca3;
+      --secondary: #f72585;
+      --accent: #4cc9f0;
+      --dark: #14213d;
+      --light: #f8f9fa;
+      --gray: #adb5bd;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    @font-face {
+      font-family: 'Poppins';
+      src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 1.8rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 10;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .contact-info {
+      margin-top: 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .contact-item i {
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 140px);
+      padding: 2rem;
+    }
+
+    .product-slider-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      perspective: 1000px;
+    }
+
+    .product-slider {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.5s ease;
+      transform-style: preserve-3d;
+    }
+
+    .product-slider:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--primary);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .arrow:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .arrow.left {
+      left: -30px;
+    }
+
+    .arrow.right {
+      right: -30px;
+    }
+
+    .product-display {
+      padding: 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .product-image-container {
+      width: 280px;
+      height: 280px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      position: relative;
+      transition: transform 0.5s ease;
+    }
+
+    .product-image-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(76,201,240,0.05));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-image-container:hover::after {
+      opacity: 1;
+    }
+
+    .product-image-container:hover {
+      transform: translateY(-5px) rotate(1deg);
+    }
+
+    .product-image {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+
+    .product-image-container:hover .product-image {
+      transform: scale(1.08);
+    }
+
+    .product-name {
+      font-size: 1.8rem;
+      margin: 0.5rem 0;
+      color: var(--dark);
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+    }
+
+    .product-name::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 3px;
+    }
+
+    .product-price {
+      color: var(--primary);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(76,201,240,0.1));
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      display: inline-block;
+    }
+
+    .product-specs {
+      list-style: none;
+      margin: 1.5rem auto;
+      max-width: 400px;
+      text-align: left;
+    }
+
+    .product-specs li {
+      padding: 0.6rem 0;
+      padding-left: 2rem;
+      position: relative;
+      font-size: 0.95rem;
+    }
+
+    .product-specs li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #2ecc71;
+      font-size: 1rem;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 0.8rem;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray);
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dot::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: left 0.4s ease;
+    }
+
+    .dot.active {
+      transform: scale(1.3);
+    }
+
+    .dot.active::before {
+      left: 0;
+    }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-info {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .product-display {
+        padding: 2rem 1.5rem;
+      }
+      
+      .product-image-container {
+        width: 220px;
+        height: 220px;
+      }
+      
+      .arrow {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .arrow.left {
+        left: -15px;
+      }
+      
+      .arrow.right {
+        right: -15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ElectroMart</h1>
+    <div class="contact-info">
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>sales@electromart.com</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+91 98765 43210</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Bangalore, India</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="product-slider-container">
+      <button class="arrow left" onclick="prevProduct()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="product-slider">
+        <div class="product-display" id="product-display">
+          <!-- Product will be shown here -->
+        </div>
+      </div>
+
+      <button class="arrow right" onclick="nextProduct()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      
+      <div class="slider-dots" id="slider-dots">
+        <!-- Dots will be added here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>© 2023 ElectroMart. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        image: "https://m.media-amazon.com/images/I/61G9VC33fsL._AC_UF1000,1000_QL80_.jpg",
+        name: "High Torque DC Motor",
+        price: "₹199",
+        specs: [
+          "12V DC operation with 300 RPM",
+          "Metal gearbox for durability",
+          "Perfect for robotics projects",
+          "Low noise and high efficiency"
+        ]
+      },
+      {
+        id: 2,
+        image: "https://5.imimg.com/data5/SELLER/Default/2021/12/QI/VO/JA/3033203/electronic-wires.jpg",
+        name: "Premium Jumper Wires",
+        price: "₹59",
+        specs: [
+          "40-piece multicolor set",
+          "Flexible silicone insulation",
+          "Pure copper conductors",
+          "22AWG for optimal current flow"
+        ]
+      },
+      {
+        id: 3,
+        image: "https://m.media-amazon.com/images/I/61j6o4JEa6L._AC_UF1000,1000_QL80_.jpg",
+        name: "Arduino UNO R3",
+        price: "₹449",
+        specs: [
+          "ATmega328P microcontroller",
+          "14 digital I/O pins (6 PWM)",
+          "6 analog input pins",
+          "USB programming interface"
+        ]
+      },
+      {
+        id: 4,
+        image: "https://m.media-amazon.com/images/I/71Wkz+jq5aL._AC_UF1000,1000_QL80_.jpg",
+        name: "Breadboard 840 Points",
+        price: "₹169",
+        specs: [
+          "840 tie-points for complex circuits",
+          "Self-adhesive backing",
+          "Reusable design",
+          "Standard 6.5 x 4.4 inch size"
+        ]
+      },
+      {
+        id: 5,
+        image: "https://m.media-amazon.com/images/I/61k+7+bxGUL._AC_UF1000,1000_QL80_.jpg",
+        name: "LED & Resistor Kit",
+        price: "₹25",
+        specs: [
+          "10 x 5mm LEDs (multicolor)",
+          "10 x 330Ω resistors",
+          "Pre-matched pairs",
+          "Ideal for beginners"
+        ]
+      },
+      {
+        id: 6,
+        image: "https://m.media-amazon.com/images/I/61G9VC33fsL._AC_UF1000,1000_QL80_.jpg",
+        name: "9V Battery Pack",
+        price: "₹35",
+        specs: [
+          "Alkaline long-life battery",
+          "Leak-proof construction",
+          "2-year shelf life",
+          "Ideal for prototypes"
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+    const productDisplay = document.getElementById('product-display');
+    const sliderDots = document.getElementById('slider-dots');
+    let autoRotateInterval;
+
+    function showProduct(index) {
+      const product = products[index];
+      productDisplay.innerHTML = `
+        <div class="product-image-container">
+          <img class="product-image" src="${product.image}" alt="${product.name}">
+        </div>
+        <h2 class="product-name">${product.name}</h2>
+        <p class="product-price">${product.price}</p>
+        <ul class="product-specs">
+          ${product.specs.map(spec => `<li>${spec}</li>`).join('')}
+        </ul>
+      `;
+      
+      updateDots(index);
+    }
+
+    function createDots() {
+      sliderDots.innerHTML = '';
+      products.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (index === currentIndex) dot.classList.add('active');
+        dot.addEventListener('click', () => goToProduct(index));
+        sliderDots.appendChild(dot);
+      });
+    }
+
+    function updateDots(index) {
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    function goToProduct(index) {
+      currentIndex = index;
+      showProduct(currentIndex);
+      resetAutoRotate();
+    }
+
+    function prevProduct() {
+      currentIndex = (currentIndex - 1 + products.length) % products.length;
+      showProduct(currentIndex);
+      resetAutoRotate();
+    }
+
+    function nextProduct() {
+      currentIndex = (currentIndex + 1) % products.length;
+      showProduct(currentIndex);
+      resetAutoRotate();
+    }
+
+    function startAutoRotate() {
+      autoRotateInterval = setInterval(nextProduct, 4000);
+    }
+
+    function resetAutoRotate() {
+      clearInterval(autoRotateInterval);
+      startAutoRotate();
+    }
+
+    // Initialize
+    showProduct(currentIndex);
+    createDots();
+    startAutoRotate();
+
+    // Pause auto-rotate when hovering over slider
+    productDisplay.addEventListener('mouseenter', () => {
+      clearInterval(autoRotateInterval);
+    });
+
+    productDisplay.addEventListener('mouseleave', () => {
+      startAutoRotate();
+    });
+  </script>
+</body>
+</html>
