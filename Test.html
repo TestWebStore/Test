@@ -15,7 +15,7 @@
       --light: #f8f9fa;
       --gray: #adb5bd;
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -29,11 +29,6 @@
       color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
-    }
-
-    @font-face {
-      font-family: 'Poppins';
-      src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
     }
 
     header {
@@ -316,30 +311,30 @@
       header h1 {
         font-size: 2rem;
       }
-      
+
       .contact-info {
         flex-direction: column;
         gap: 0.5rem;
       }
-      
+
       .product-display {
         padding: 2rem 1.5rem;
       }
-      
+
       .product-image-container {
         width: 220px;
         height: 220px;
       }
-      
+
       .arrow {
         width: 50px;
         height: 50px;
       }
-      
+
       .arrow.left {
         left: -15px;
       }
-      
+
       .arrow.right {
         right: -15px;
       }
@@ -370,7 +365,7 @@
       <button class="arrow left" onclick="prevProduct()">
         <i class="fas fa-chevron-left"></i>
       </button>
-      
+
       <div class="product-slider">
         <div class="product-display" id="product-display">
           <!-- Product will be shown here -->
@@ -380,7 +375,7 @@
       <button class="arrow right" onclick="nextProduct()">
         <i class="fas fa-chevron-right"></i>
       </button>
-      
+
       <div class="slider-dots" id="slider-dots">
         <!-- Dots will be added here -->
       </div>
@@ -397,7 +392,7 @@
     const products = [
       {
         id: 1,
-        image: "https://m.media-amazon.com/images/I/61G9VC33fsL._AC_UF1000,1000_QL80_.jpg",
+        image: "DCMotor.png",
         name: "High Torque DC Motor",
         price: "₹199",
         specs: [
@@ -409,7 +404,7 @@
       },
       {
         id: 2,
-        image: "https://5.imimg.com/data5/SELLER/Default/2021/12/QI/VO/JA/3033203/electronic-wires.jpg",
+        image: "JumperWires.png",
         name: "Premium Jumper Wires",
         price: "₹59",
         specs: [
@@ -421,7 +416,7 @@
       },
       {
         id: 3,
-        image: "https://m.media-amazon.com/images/I/61j6o4JEa6L._AC_UF1000,1000_QL80_.jpg",
+        image: "ArduinoUno.png",
         name: "Arduino UNO R3",
         price: "₹449",
         specs: [
@@ -433,7 +428,7 @@
       },
       {
         id: 4,
-        image: "https://m.media-amazon.com/images/I/71Wkz+jq5aL._AC_UF1000,1000_QL80_.jpg",
+        image: "Breadboard.png",
         name: "Breadboard 840 Points",
         price: "₹169",
         specs: [
@@ -445,7 +440,7 @@
       },
       {
         id: 5,
-        image: "https://m.media-amazon.com/images/I/61k+7+bxGUL._AC_UF1000,1000_QL80_.jpg",
+        image: "LEDResistorKit.png",
         name: "LED & Resistor Kit",
         price: "₹25",
         specs: [
@@ -457,7 +452,7 @@
       },
       {
         id: 6,
-        image: "https://m.media-amazon.com/images/I/61G9VC33fsL._AC_UF1000,1000_QL80_.jpg",
+        image: "Battery.PNG",
         name: "9V Battery Pack",
         price: "₹35",
         specs: [
@@ -486,7 +481,6 @@
           ${product.specs.map(spec => `<li>${spec}</li>`).join('')}
         </ul>
       `;
-      
       updateDots(index);
     }
 
@@ -539,7 +533,6 @@
     createDots();
     startAutoRotate();
 
-    // Pause auto-rotate when hovering over slider
     productDisplay.addEventListener('mouseenter', () => {
       clearInterval(autoRotateInterval);
     });
